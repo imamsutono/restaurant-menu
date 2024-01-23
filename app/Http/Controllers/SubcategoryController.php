@@ -12,7 +12,7 @@ use Illuminate\Http\JsonResponse;
 
 class SubcategoryController extends Controller
 {
-    public function __construct(protected SubcategoryService $subcategory)
+    public function __construct(protected SubcategoryService $subcategoryService)
     {
     }
 
@@ -21,7 +21,7 @@ class SubcategoryController extends Controller
      */
     public function index(): JsonResponse
     {
-        return ApiResponse::success($this->subcategory->getAll());
+        return ApiResponse::success($this->subcategoryService->getAll());
     }
 
     /**
@@ -69,8 +69,11 @@ class SubcategoryController extends Controller
      */
     public function destroy(Category $subcategory): JsonResponse
     {
-        $status = $this->subcategory->delete($subcategory);
+        $del = $this->subcategoryService->delete($subcategory);
 
-        return ApiResponse::success($status);
+        if ($del === 'fail') {
+            return ApiResponse::fail('Oh no, you want to delete category, not subcategory.');
+        }
+        return ApiResponse::success(message: "Subcategory $del successfully deleted 🎉");
     }
 }

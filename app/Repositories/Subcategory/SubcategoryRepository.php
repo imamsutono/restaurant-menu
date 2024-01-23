@@ -13,4 +13,13 @@ class SubcategoryRepository implements SubcategoryInterface
             ->where('level', '>', 0)
             ->paginate(20);
     }
+
+    public function delete(Category $category): string
+    {
+        $name = $category->name;
+
+        $category->delete();
+
+        return $name;
+    }
 }

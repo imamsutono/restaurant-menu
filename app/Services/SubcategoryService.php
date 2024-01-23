@@ -22,7 +22,6 @@ class SubcategoryService
         if ($category->level === config('custom.category_level')) {
             return 'fail';
         }
-
-        return 'ok';
+        return $this->subcategoryRepository->delete($category);
     }
 }
