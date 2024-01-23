@@ -23,15 +23,17 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:categories,slug'
+            'name'  => 'required|string|max:255',
+            'slug'  => 'required|string|max:255|unique:categories,slug',
+            'level' => 'required|integer|digits_between:0,4'
         ];
     }
 
     protected function prepareForValidation()
     {
         $this->merge([
-            'slug' => Str::slug($this->get('name'))
+            'slug'  => Str::slug($this->get('name')),
+            'level' => 0
         ]);
     }
 }

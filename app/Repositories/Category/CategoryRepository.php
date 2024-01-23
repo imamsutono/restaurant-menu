@@ -9,7 +9,7 @@ class CategoryRepository implements CategoryInterface
 {
     public function getAll(): LengthAwarePaginator
     {
-        return Category::select(['slug', 'name'])->paginate(20);
+        return Category::select(['slug', 'name', 'level'])->paginate(20);
     }
 
     public function create(array $data): string

@@ -20,8 +20,10 @@ class CategoryFactory extends Factory
         $name = fake()->unique()->name();
 
         return [
-            'name' => $name,
-            'slug' => Str::slug($name)
+            'parent_id' => fake()->numberBetween(1, 100),
+            'name'      => $name,
+            'slug'      => Str::slug($name),
+            'level'     => fake()->numberBetween(0, 4)
         ];
     }
 }

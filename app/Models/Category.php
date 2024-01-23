@@ -10,7 +10,7 @@ class Category extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'slug'];
+    protected $fillable = ['parent_id', 'name', 'slug', 'level'];
 
     public function getRouteKeyName()
     {
