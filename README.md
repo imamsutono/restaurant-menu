@@ -20,3 +20,6 @@ The business logic layer, calls the repository to provide the data result to the
 As the data layer, access it from the Model
 - **Model**<br>
 Representation of table in the database
+
+#### Git Commit Convention
+[Conventional Commits v1.0.0](https://www.conventionalcommits.org/en/v1.0.0)
