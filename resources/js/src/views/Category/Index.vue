@@ -1,7 +1,7 @@
 <template>
     <h1>Category List</h1>
 
-    <router-link to="/">
+    <router-link :to="{name: 'category-create'}">
         <button>Create New</button>
     </router-link>
 

@@ -17,6 +17,11 @@ class CategoryService
         return $this->categoryRepository->getAll();
     }
 
+    public function create(array $data): string
+    {
+        return $this->categoryRepository->create($data);
+    }
+
     public function delete(Category $category)
     {
         return $this->categoryRepository->delete($category);

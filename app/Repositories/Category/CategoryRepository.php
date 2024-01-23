@@ -12,6 +12,13 @@ class CategoryRepository implements CategoryInterface
         return Category::select(['id', 'name'])->paginate(20);
     }
 
+    public function create(array $data): string
+    {
+        Category::create($data);
+
+        return $data['name'];
+    }
+
     public function delete(Category $category): string
     {
         $name = $category->name;
