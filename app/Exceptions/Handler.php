@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use App\Helpers\ApiResponse;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -36,9 +37,15 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $e)
     {
         if ($request->wantsJson()) {
+            if ($e instanceof ValidationException) {
+                return ApiResponse::fail($e->getMessage(), 422, errors: $e->errors());
+            }
+
             if ($e instanceof ModelNotFoundException) {
                 return ApiResponse::fail("Data not found.", 404);
             }
+
+            return ApiResponse::error($e->getMessage(), $e->getCode());
         }
 
         return parent::render($request, $e);
