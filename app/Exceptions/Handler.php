@@ -44,8 +44,6 @@ class Handler extends ExceptionHandler
             if ($e instanceof ModelNotFoundException) {
                 return ApiResponse::fail("Data not found.", 404);
             }
-
-            return ApiResponse::error($e->getMessage(), $e->getCode());
         }
 
         return parent::render($request, $e);
