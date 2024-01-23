@@ -22,6 +22,11 @@ class CategoryService
         return $this->categoryRepository->create($data);
     }
 
+    public function update(array $data, Category $category): string
+    {
+        return $this->categoryRepository->update($data, $category);
+    }
+
     public function delete(Category $category)
     {
         return $this->categoryRepository->delete($category);

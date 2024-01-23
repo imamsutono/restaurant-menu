@@ -47,9 +47,10 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show(Category $category): JsonResponse
     {
-        //
+        $data = $category->only(['id', 'name', 'slug']);
+        return ApiResponse::success($data);
     }
 
     /**
@@ -63,9 +64,15 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category): JsonResponse
     {
-        //
+        $prevName = $category->name;
+        $data = $request->only(['name', 'slug']);
+
+        $this->categoryService->update($data, $category);
+        $message = "Category $prevName successfully updated to " . $data['name'];
+
+        return ApiResponse::success($data, $message);
     }
 
     /**

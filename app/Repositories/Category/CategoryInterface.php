@@ -9,5 +9,6 @@ interface CategoryInterface
 {
     public function getAll(): LengthAwarePaginator;
     public function create(array $data): string;
+    public function update(array $data, Category $category): string;
     public function delete(Category $category): string;
 }

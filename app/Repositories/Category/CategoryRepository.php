@@ -19,6 +19,13 @@ class CategoryRepository implements CategoryInterface
         return $data['name'];
     }
 
+    public function update(array $data, Category $category): string
+    {
+        $category->update($data);
+
+        return $data['name'];
+    }
+
     public function delete(Category $category): string
     {
         $name = $category->name;

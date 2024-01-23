@@ -18,7 +18,9 @@
                 <td>{{ index + 1 }}</td>
                 <td>{{ name }}</td>
                 <td>
-                    <button>Edit</button>
+                    <router-link :to="{path: `/category/edit/${slug}`}">
+                        <button>Edit</button>
+                    </router-link>
                     <button @click="confirmDelete(slug)">Delete</button>
                 </td>
             </tr>
