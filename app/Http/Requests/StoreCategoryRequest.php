@@ -33,7 +33,7 @@ class StoreCategoryRequest extends FormRequest
     {
         $this->merge([
             'slug'  => Str::slug($this->get('name')),
-            'level' => 0
+            'level' => config('custom.category_level')
         ]);
     }
 }

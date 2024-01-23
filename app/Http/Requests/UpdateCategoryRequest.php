@@ -30,14 +30,16 @@ class UpdateCategoryRequest extends FormRequest
                 'string',
                 'max:255',
                 Rule::unique('categories')->ignore($this->slug, 'slug')
-            ]
+            ],
+            'level' => 'required|integer|digits_between:0,4'
         ];
     }
 
     protected function prepareForValidation()
     {
         $this->merge([
-            'slug' => Str::slug($this->name)
+            'slug'  => Str::slug($this->name),
+            'level' => config('custom.category_level')
         ]);
     }
 }
