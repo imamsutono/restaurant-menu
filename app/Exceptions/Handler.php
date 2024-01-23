@@ -2,6 +2,8 @@
 
 namespace App\Exceptions;
 
+use App\Helpers\ApiResponse;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -26,5 +28,19 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    /**
+     * Render the exception into an HTTP response.
+     */
+    public function render($request, Throwable $e)
+    {
+        if ($request->wantsJson()) {
+            if ($e instanceof ModelNotFoundException) {
+                return ApiResponse::fail("Data not found.", 404);
+            }
+        }
+
+        return parent::render($request, $e);
     }
 }
