@@ -19,7 +19,7 @@
                 <td>{{ name }}</td>
                 <td>
                     <button>Edit</button>
-                    <button>Delete</button>
+                    <button @click="confirmDelete(999)">Delete</button>
                 </td>
             </tr>
         </tbody>
@@ -54,6 +54,27 @@
         } catch (error) {
             alert(`Error fetching data: ${error?.message}`)
         }
+    }
+
+    const confirmDelete = (categoryId) => {
+        const isConfirmed = confirm('Are you sure want to delete the category?')
+        
+        if (isConfirmed) {
+            deleteItem(categoryId)
+        }
+    }
+
+    const deleteItem = (categoryId) => {
+        axios.delete(`/category/${categoryId}`)
+            .then(({ data }) => {
+                console.log(data)
+                alert(data.message)
+                getCategories(route.query.page)
+            })
+            .catch(response => {
+                console.log(response)
+                // alert(data.message)
+            })
     }
 
     const paginationLink = (url = '') => `category?${url.split('?')[1]}`

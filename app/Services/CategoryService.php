@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Category;
 use App\Repositories\Category\CategoryRepository;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -14,5 +15,10 @@ class CategoryService
     public function getAll(): LengthAwarePaginator
     {
         return $this->categoryRepository->getAll();
+    }
+
+    public function delete(Category $category)
+    {
+        return $this->categoryRepository->delete($category);
     }
 }

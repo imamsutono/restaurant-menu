@@ -11,4 +11,13 @@ class CategoryRepository implements CategoryInterface
     {
         return Category::select(['id', 'name'])->paginate(20);
     }
+
+    public function delete(Category $category): string
+    {
+        $name = $category->name;
+
+        $category->delete();
+
+        return $name;
+    }
 }
