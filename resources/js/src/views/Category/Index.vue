@@ -14,12 +14,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="({ id, name }, index) in categories" :key="id">
+            <tr v-for="({ slug, name }, index) in categories" :key="slug">
                 <td>{{ index + 1 }}</td>
                 <td>{{ name }}</td>
                 <td>
                     <button>Edit</button>
-                    <button @click="confirmDelete(999)">Delete</button>
+                    <button @click="confirmDelete(slug)">Delete</button>
                 </td>
             </tr>
         </tbody>
@@ -56,24 +56,22 @@
         }
     }
 
-    const confirmDelete = (categoryId) => {
+    const confirmDelete = (slug) => {
         const isConfirmed = confirm('Are you sure want to delete the category?')
-        
+
         if (isConfirmed) {
-            deleteItem(categoryId)
+            deleteItem(slug)
         }
     }
 
-    const deleteItem = (categoryId) => {
-        axios.delete(`/category/${categoryId}`)
+    const deleteItem = slug => {
+        axios.delete(`/category/abc`)
             .then(({ data }) => {
-                console.log(data)
                 alert(data.message)
                 getCategories(route.query.page)
             })
-            .catch(response => {
-                console.log(response)
-                // alert(data.message)
+            .catch(({ data }) => {
+                alert(data.message)
             })
     }
 
