@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Helpers\ActionStatus;
 use App\Helpers\ApiResponse;
 use App\Models\Category;
-use App\Models\Subcategory;
 use App\Http\Requests\StoreSubcategoryRequest;
 use App\Http\Requests\UpdateSubcategoryRequest;
 use App\Services\SubcategoryService;
@@ -51,7 +50,7 @@ class SubcategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Subcategory $subcategory)
+    public function show(Category $subcategory)
     {
         //
     }
@@ -59,7 +58,7 @@ class SubcategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Subcategory $subcategory)
+    public function edit(Category $subcategory)
     {
         $data = $subcategory->only(['id', 'name', 'level', 'parent_id']);
         return ApiResponse::success($data);
