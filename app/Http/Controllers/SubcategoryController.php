@@ -61,7 +61,8 @@ class SubcategoryController extends Controller
      */
     public function edit(Subcategory $subcategory)
     {
-        //
+        $data = $subcategory->only(['id', 'name', 'level', 'parent_id']);
+        return ApiResponse::success($data);
     }
 
     /**
