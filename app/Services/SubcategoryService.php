@@ -40,6 +40,23 @@ class SubcategoryService
         return $this->getResult(ActionStatus::SUCCESS);
     }
 
+    public function update(array $data, Category $category)
+    {
+        $level = $data['level'];
+        if ($this->isCategory($level)) {
+            return $this->getResult(ActionStatus::FAIL, 'The level is category, it should subcategory.');
+        }
+
+        $isDirectParent = $this->repository->checkParentLevel($data['parent_id'], $level);
+        if (!$isDirectParent) {
+            return $this->getResult(ActionStatus::FAIL, 'The level of selected parent is not the direct parent.');
+        }
+
+        $this->repository->update($data, $category); 
+
+        return $this->getResult(ActionStatus::SUCCESS);
+    }
+
     private function getResult(string $status, string $message = ''): array
     {
         return ['status'  => $status, 'message' => $message];

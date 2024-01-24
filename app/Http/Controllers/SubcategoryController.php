@@ -68,9 +68,19 @@ class SubcategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSubcategoryRequest $request, Subcategory $subcategory)
+    public function update(UpdateSubcategoryRequest $request, Category $subcategory)
     {
-        //
+        $prevName = $subcategory->name;
+        $data = $request->only(['name', 'slug', 'level', 'parent_id']);
+        $newData = $this->subcategoryService->update($data, $subcategory);
+
+        if ($newData['status'] === ActionStatus::FAIL) {
+            return ApiResponse::fail($newData['message']);
+        }
+
+        $message = 'Category ' . $prevName . ' successfully updated to ' . $data['name'];
+
+        return ApiResponse::success($message);
     }
 
     /**

@@ -22,6 +22,16 @@ class SubcategoryRepository implements SubcategoryInterface
     }
 
     /**
+     * Update subcategory.
+     */
+    public function update(array $data, Category $category): string
+    {
+        $category->update($data);
+
+        return $data['name'];
+    }
+
+    /**
      * Check the parent level is direct parent of the selected level.
      */
     public function checkParentLevel(int $parent_id, int $level): bool
