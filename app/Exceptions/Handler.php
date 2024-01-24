@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use App\Helpers\ApiResponse;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Throwable;
@@ -43,6 +44,16 @@ class Handler extends ExceptionHandler
 
             if ($e instanceof ModelNotFoundException) {
                 return ApiResponse::fail("Data not found.", 404);
+            }
+
+            if ($e instanceof QueryException) {
+                if (config('custom.is_development')) {
+                    $message = $e->getMessage();
+                } else {
+                    $message = "There is an error in our storage. Please call the administrator or try again later.";
+                }
+
+                return ApiResponse::error($message, 500);
             }
         }
 
