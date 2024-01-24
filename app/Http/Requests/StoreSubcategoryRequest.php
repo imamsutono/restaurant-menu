@@ -25,7 +25,7 @@ class StoreSubcategoryRequest extends FormRequest
         return [
             'name'      => 'required|string|max:255',
             'slug'      => 'required|string|max:255|unique:categories,slug',
-            'level'     => 'required|integer|digits_between:0,4',
+            'level'     => 'required|integer|between:1,' . config('custom.max_sub_level'),
             'parent_id' => 'required|integer|exists:categories,id,deleted_at,NULL'
         ];
     }

@@ -25,7 +25,7 @@ class UpdateSubcategoryRequest extends FormRequest
     {
         return [
             'name'      => 'required|string|max:255',
-            'level'     => 'required|integer|digits_between:0,4',
+            'level'     => 'required|integer|digits_between:1,' . config('custom.max_sub_level'),
             'parent_id' => 'required|integer|exists:categories,id,deleted_at,NULL',
             'slug'      => [
                 'required',

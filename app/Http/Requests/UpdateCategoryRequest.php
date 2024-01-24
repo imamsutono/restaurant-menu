@@ -31,7 +31,7 @@ class UpdateCategoryRequest extends FormRequest
                 'max:255',
                 Rule::unique('categories')->ignore($this->slug, 'slug')
             ],
-            'level' => 'required|integer|digits_between:0,4'
+            'level' => 'required|integer|in:' . config('custom.category_level')
         ];
     }
 
