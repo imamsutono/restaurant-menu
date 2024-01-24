@@ -2,26 +2,54 @@
 
 namespace App\Services;
 
+use App\Helpers\ActionStatus;
 use App\Models\Category;
 use App\Repositories\Subcategory\SubcategoryRepository;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class SubcategoryService
 {
-    public function __construct(protected SubcategoryRepository $subcategoryRepository)
+    public function __construct(protected SubcategoryRepository $repository)
     {
+    }
+
+    private function isCategory(int $level): bool
+    {
+        return $level === config('custom.category_level');
     }
 
     public function getAll(): LengthAwarePaginator
     {
-        return $this->subcategoryRepository->getAll();
+        return $this->repository->getAll();
+    }
+
+    public function create(array $data)
+    {
+        $level = $data['level'];
+        if ($this->isCategory($level)) {
+            return $this->getResult(ActionStatus::FAIL, 'The level is category, it should subcategory.');
+        }
+
+        $isDirectParent = $this->repository->checkParentLevel($data['parent_id'], $level);
+        if (!$isDirectParent) {
+            return $this->getResult(ActionStatus::FAIL, 'The parent level selected is not the direct parent.');
+        }
+
+        $this->repository->create($data); 
+
+        return $this->getResult(ActionStatus::SUCCESS);
+    }
+
+    private function getResult(string $status, string $message = ''): array
+    {
+        return ['status'  => $status, 'message' => $message];
     }
 
     public function delete(Category $category): string
     {
-        if ($category->level === config('custom.category_level')) {
+        if ($this->isCategory($category->level)) {
             return 'fail';
         }
-        return $this->subcategoryRepository->delete($category);
+        return $this->repository->delete($category);
     }
 }

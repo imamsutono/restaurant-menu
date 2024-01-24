@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ActionStatus;
 use App\Helpers\ApiResponse;
 use App\Models\Category;
 use App\Models\Subcategory;
@@ -37,7 +38,14 @@ class SubcategoryController extends Controller
      */
     public function store(StoreSubcategoryRequest $request)
     {
-        //
+        $data = $request->only(['name', 'slug', 'level', 'parent_id']);
+        $newData = $this->subcategoryService->create($data);
+
+        if ($newData['status'] === ActionStatus::FAIL) {
+            return ApiResponse::fail($newData['message']);
+        }
+
+        return ApiResponse::success('Subcategory ' . $data['name'] . ' successfully added 🥳');
     }
 
     /**

@@ -14,6 +14,25 @@ class SubcategoryRepository implements SubcategoryInterface
             ->paginate(20);
     }
 
+    public function create(array $data): string
+    {
+        Category::create($data);
+
+        return $data['name'];
+    }
+
+    /**
+     * Check the parent level is direct parent of the selected level.
+     */
+    public function checkParentLevel(int $parent_id, int $level): bool
+    {
+        $parentLevel = Category::select('level')
+            ->whereId($parent_id)
+            ->first()->level;
+
+        return $parentLevel === $level - 1;
+    }
+
     public function delete(Category $category): string
     {
         $name = $category->name;
