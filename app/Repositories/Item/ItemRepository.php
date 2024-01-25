@@ -21,6 +21,13 @@ class ItemRepository implements ItemInterface
         return $data['name'];
     }
 
+    public function update(array $data, Item $item): string
+    {
+        $item->update($data);
+
+        return $data['name'];
+    }
+
     public function delete(Item $item): string
     {
         $name = $item->name;

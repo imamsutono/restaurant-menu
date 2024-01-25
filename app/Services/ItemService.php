@@ -21,6 +21,10 @@ class ItemService
         return $this->repository->create($data);
     }
 
+    public function update(array $data, Item $item)
+    {
+        return $this->repository->update($data, $item);
+    }
 
     public function delete(Item $item)
     {

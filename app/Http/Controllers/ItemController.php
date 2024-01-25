@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\ApiResponse;
 use App\Http\Requests\StoreItemRequest;
+use App\Http\Requests\UpdateItemRequest;
 use App\Models\Item;
 use App\Services\ItemService;
 use Illuminate\Http\Request;
@@ -61,9 +62,15 @@ class ItemController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateItemRequest $request, Item $item)
     {
-        //
+        $prevName = $item->name;
+        $data = $request->only(['category_id', 'parent_id', 'name', 'price']);
+        $message = 'Category ' . $prevName . ' successfully updated to ' . $data['name'];
+
+        $this->service->update($data, $item);
+
+        return ApiResponse::success($message);
     }
 
     /**
