@@ -11,6 +11,8 @@ class Item extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = ['category_id', 'parent_id', 'name', 'slug', 'price'];
+
     public function getRouteKeyName()
     {
         return 'slug';
