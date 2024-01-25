@@ -11,6 +11,11 @@ class Item extends Model
 {
     use HasFactory, SoftDeletes;
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);

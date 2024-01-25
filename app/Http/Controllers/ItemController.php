@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ApiResponse;
+use App\Models\Item;
 use App\Services\ItemService;
 use Illuminate\Http\Request;
 
@@ -64,8 +65,10 @@ class ItemController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Item $item)
     {
-        //
+        $name = $this->service->delete($item);
+
+        return ApiResponse::success(message: "Item $name successfully deleted 🗑️");
     }
 }

@@ -13,4 +13,13 @@ class ItemRepository implements ItemInterface
             ->with('category:id,name')
             ->paginate(20);
     }
+
+    public function delete(Item $item): string
+    {
+        $name = $item->name;
+
+        $item->delete();
+
+        return $name;
+    }
 }
