@@ -52,7 +52,8 @@ class SubcategoryController extends Controller
      */
     public function show(Category $subcategory)
     {
-        //
+        $data = $subcategory->only(['id', 'name', 'level', 'parent_id']);
+        return ApiResponse::success($data);
     }
 
     /**
@@ -60,8 +61,7 @@ class SubcategoryController extends Controller
      */
     public function edit(Category $subcategory)
     {
-        $data = $subcategory->only(['id', 'name', 'level', 'parent_id']);
-        return ApiResponse::success($data);
+        //
     }
 
     /**
