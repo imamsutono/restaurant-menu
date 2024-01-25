@@ -60,6 +60,26 @@
         }
     }
 
+    
+    const confirmDelete = (slug) => {
+        const isConfirmed = confirm('Are you sure want to delete the subcategory?')
+
+        if (isConfirmed) {
+            deleteItem(slug)
+        }
+    }
+
+    const deleteItem = slug => {
+        axios.delete(`/subcategory/${slug}`)
+            .then(({ data }) => {
+                alert(data.message)
+                getSubcategories(route.query.page)
+            })
+            .catch(({ data }) => {
+                alert(data.message)
+            })
+    }
+
     const paginationLink = (url = '') => `subcategory?${url.split('?')[1]}`
 
     onMounted(() => {
