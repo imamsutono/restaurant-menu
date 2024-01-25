@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\SubcategoryController;
 use Illuminate\Http\Request;
@@ -24,3 +25,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResource('category', CategoryController::class);
 Route::apiResource('subcategory', SubcategoryController::class);
 Route::apiResource('item', ItemController::class);
+Route::resource('discount', DiscountController::class);
