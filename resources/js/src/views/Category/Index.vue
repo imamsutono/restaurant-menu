@@ -67,7 +67,7 @@
     }
 
     const deleteItem = slug => {
-        axios.delete(`/category/abc`)
+        axios.delete(`/category/${slug}`)
             .then(({ data }) => {
                 alert(data.message)
                 getCategories(route.query.page)
