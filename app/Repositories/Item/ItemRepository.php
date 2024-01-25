@@ -14,6 +14,13 @@ class ItemRepository implements ItemInterface
             ->paginate(20);
     }
 
+    public function create(array $data): string
+    {
+        Item::create($data);
+
+        return $data['name'];
+    }
+
     public function delete(Item $item): string
     {
         $name = $item->name;

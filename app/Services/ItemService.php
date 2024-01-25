@@ -16,6 +16,11 @@ class ItemService
         return $this->repository->getAll();
     }
 
+    public function create(array $data)
+    {
+        return $this->repository->create($data);
+    }
+
 
     public function delete(Item $item)
     {

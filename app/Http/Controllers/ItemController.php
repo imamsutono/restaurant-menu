@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ApiResponse;
+use App\Http\Requests\StoreItemRequest;
 use App\Models\Item;
 use App\Services\ItemService;
 use Illuminate\Http\Request;
@@ -33,9 +34,12 @@ class ItemController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreItemRequest $request)
     {
-        //
+        $data = $request->only(['category_id', 'parent_id', 'name', 'slug', 'price']);
+        $this->service->create($data);
+
+        return ApiResponse::success('Item ' . $data['name'] . ' successfully added 🥳');
     }
 
     /**
