@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained('categories');
+            $table->foreignId('category_id');
             $table->foreignId('parent_id')->nullable();
             $table->string('name');
             $table->string('slug');
