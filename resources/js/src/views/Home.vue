@@ -6,5 +6,8 @@
         <li>
             <router-link :to="{name: 'category'}">Category</router-link>
         </li>
+        <li>
+            <router-link :to="{name: 'subcategory'}">Subcategory</router-link>
+        </li>
     </ul>
 </template>
